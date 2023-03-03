@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{%block title %}
+Index
+{% endblock %}
+
+{% block main %}
+<div class="section text-center">
+    <h1>SEO Generator</h1>
+
+    <div class="mb-3">
+
+        <form method="post">
+
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="mainKeyword"
+                    name="mainKeyword" placeholder="Input main keyword" type="text">
+            </div>
+
+            <div class="mb-3">
+                <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="sub-keywords"
+                    name="sub-keywords" placeholder="Input sub-keyword(s)" type="text">
+            </div>
+
+            <div class="mb-3">
+                <select class="form-select mx-auto w-auto" name="textLength" id="textLength">
+                    <option disabled selected>Text length</option>
+                    <option value="500">500 words</option>
+                    <option value="1000">1,000 words</option>
+                    <option value="1500">1,500 words</option>
+                    <option value="2000">2,000 words</option>
+                </select>
+            </div>
+
+            <div class="mb-3 text-center">
+                <button autofocus disabled class="btn btn-primary" id="submitButton" type="submit">Submit</button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="mb-3 text-center">
+        <h2>SEO generated content</h2>
+        <textarea readonly id="outputField" name="outputField" rows="40" cols="130">
+                Your text will show up here
+            </textarea>
+    </div>
+
+
+</div>
+{% endblock %}
