@@ -47,13 +47,13 @@ function onLoad() {
 function handleResponse(response) {
 
     const outputField = document.getElementById("outputField")
-    outputField.value = response.text
+    outputField.innerHTML = response.map(value => value.section).join("\n")
 
     const button = document.getElementById("submitButton");
 
     removeLoadingState(button)
 
-    console.log(response.text)
+    console.log(response)
 
 }
 
