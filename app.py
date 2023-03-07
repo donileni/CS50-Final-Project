@@ -1,3 +1,4 @@
+import json
 import re
 import sys
 from datetime import datetime
@@ -24,10 +25,25 @@ def write_content():
     sub_keyword = user_inputs["subKeyword"]
     text_length = user_inputs["textLength"]
 
-    headings = generate_headings(keyword, sub_keyword, text_length)
+    # headings = generate_headings(keyword, sub_keyword, text_length)
+
+    suggested_headings = generate_suggested_headings(keyword, sub_keyword)
+
     content = generate_content(headings)
 
     return jsonify(content)
+
+
+@app.route("/api/headings", methods=["POST"])
+def choose_headings():
+    user_inputs = request.json
+    keyword = user_inputs["keyword"]
+    sub_keyword = user_inputs["subKeyword"]
+    text_length = user_inputs["textLength"]
+
+    suggested_headings = generate_suggested_headings(keyword, sub_keyword)
+
+    return jsonify(data=suggested_headings)
 
 
 def generate_headings(keyword, sub_keyword, text_length):
@@ -89,3 +105,22 @@ def generate_content(headings):
         i += 1
 
     return sections
+
+
+def generate_suggested_headings(keyword, sub_keyword):
+    headings = []
+    for i in range(10):
+        headings_prompt = "Give me ONE cool and unique SEO-compatible H2 heading based on the keyword '{}' and the sub-keyword '{}'".format(
+            keyword, sub_keyword)
+
+        response = openai.Completion.create(
+            model="text-davinci-003",
+            prompt=headings_prompt,
+            temperature=0.6,
+            max_tokens=500
+        )
+        heading = response["choices"][0]["text"].replace(
+            "\n\n", "", 1).replace('"', '')
+        headings.append(heading)
+
+    return (headings)

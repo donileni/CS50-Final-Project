@@ -5,8 +5,8 @@ Index
 {% endblock %}
 
 {% block main %}
-<div class="section text-center">
-    <h1>SEO Generator</h1>
+<div class="section">
+    <h1 class="text-center">SEO Generator</h1>
 
     <div class="mb-3">
 
@@ -32,7 +32,11 @@ Index
                 </select>
             </div>
 
-            <div class="mb-3 text-center">
+            <div  class="mb-3 text-center">
+                <button autofocus class="btn btn-primary" id="headingsButton" type="submit">Generate suggested headings</button>
+            </div>
+
+            <div hidden class="mb-3 text-center">
                 <button autofocus disabled class="btn btn-primary" id="submitButton" type="submit">Submit</button>
             </div>
 
@@ -40,7 +44,22 @@ Index
 
     </div>
 
-    <div class="mb-3 text-center">
+
+    <div class="center">
+        <div class="mb-3 text-center">
+            <h2>Suggested Headings</h2> 
+        </div>
+
+        <div class="form-check" id="boxDiv">       
+        </div>
+        
+        <div hidden class="mb-3 text-center" id="chooseHeadingsButtonDiv">
+            <button autofocus disabled class="btn btn-primary" id="chooseHeadings" type="submit">Choose Headings</button>
+        </div>
+
+    </div>
+    
+    <div hidden class="mb-3 text-center">
         <h2>SEO generated content</h2>
         <textarea readonly id="outputField" name="outputField" rows="40" cols="130">
                 Your text will show up here
