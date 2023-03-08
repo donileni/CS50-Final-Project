@@ -109,7 +109,7 @@ def generate_content(headings):
 
 def generate_suggested_headings(keyword, sub_keyword):
     headings = []
-    for i in range(10):
+    for i in range(5):
         headings_prompt = "Give me ONE cool and unique SEO-compatible H2 heading based on the keyword '{}' and the sub-keyword '{}'".format(
             keyword, sub_keyword)
 
