@@ -64,34 +64,13 @@ function onLoad() {
 
     }
 
-
-
-    // const checkboxes = document.getElementById("boxDiv")
-    // console.log(checkboxes)
-    // const checkboxesChildren = checkboxes.childNodes.childNodes
-    // console.log(checkboxesChildren)
-
-    // const checkedBoxes = []
-
-    // for (child in checkboxesChildren) {
-    //     child.onclick = function (event) {
-    //         if (child.checked) {
-    //             checkedBoxes.push()
-    //         }  
-    //     }
-    // }
-
-    // console.log(checkedBoxes)
-
 }
 
-let checkedBoxes = []
+let selectedButtons = []
 
 function handleHeadingsResponse(response) {
-    console.log(response.data)
-    console.log(response.data.length)
 
-    addCheckboxes(response.data.length, response.data)
+    addButtons(response.data.length, response.data)
 
     const headingsButton = document.getElementById("headingsButton")
     removeLoadingState(headingsButton)
@@ -99,51 +78,43 @@ function handleHeadingsResponse(response) {
     const chooseHeadingsButtonDiv = document.getElementById("chooseHeadingsButtonDiv")
     chooseHeadingsButtonDiv.removeAttribute("hidden")
 
-    const checkboxes = document.getElementsByClassName("form-check-input")
+    const buttons = document.getElementsByClassName("list-group-item")
 
 
-    for (const box of checkboxes) {
-        box.onchange = function () {
-            if (box.checked) {
-                checkedBoxes.push(box.value)
+    for (const button of buttons) {
+        button.onclick = function () {
+            
+            const buttonSpan = button.querySelector(".order")
+            if (!buttonSpan) {
+                selectedButtons.push(button.value)
             } else {
-                checkedBoxes = checkedBoxes.filter(value => value !== box.value)
+                selectedButtons = selectedButtons.filter(value => value !== button.value)
             }
             
-            const currentBoxes = [...document.querySelectorAll(".order")]
-
-            function hej(item) {
-                item.remove()
-            }
-
-            const hej3 = hej
-
-            const hej2 = (item) => {
-                item.remove()
-            }
+            const currentButtons = [...document.querySelectorAll(".order")]
             
-            currentBoxes.forEach(item => item.remove())
+            currentButtons.forEach(item => item.remove())
 
-            const allBoxes = document.getElementsByClassName("checkBox")
-            console.log(allBoxes)
-            for (const currentBox of allBoxes) {
-                const input = currentBox.querySelector("input")
-                const value = input.value
+            const allButtons = document.getElementsByClassName("headingsButton")
+            console.log(allButtons)
+        
+            for (const currentButton of allButtons) {
+                const value = currentButton.value
 
                 
-                const index = checkedBoxes.findIndex(item => item === value)
+                const index = selectedButtons.findIndex(item => item === value)
                 if (index === -1) {
                     continue
                 }
 
                 const i = (index + 1)
-    
-                const container = document.createElement("div")
-                container.classList.add("order")
-                const position = document.createTextNode(i)
-                container.appendChild(position)
-                currentBox.appendChild(container)
 
+                const newSpan = createSpan(value)
+                newSpan.classList.add("order")
+                newSpan.value = i
+                newSpan.innerText = i
+
+                currentButton.appendChild(newSpan)
             }
 
         }
@@ -202,34 +173,42 @@ function removeLoadingState(button) {
     button.removeChild(span)
 }
 
-function createCheckbox(response, n) {
-    const new_div = document.createElement("div")
-    new_div.classList.add("form-check")
-    new_div.classList.add("checkBox")
+function createButton(response, n) {
 
-    const input = document.createElement("input")
-    input.classList.add("form-check-input")
-    input.type = "checkbox"
-    input.value = response[n]
-    input.id = response[n]
+    const button = document.createElement("button")
+    const value = response[n]
 
-    const label = document.createElement("label")
-    label.classList.add("form-check-lable")
-    label.classList.add("text-left")
-    label.htmlFor = response[n]
-    label.innerText = response[n]
+    button.classList.add("list-group-item")
+    button.classList.add("list-group-item-action")
+    button.classList.add("d-flex")
+    button.classList.add("justify-content-between")
+    button.classList.add("headingsButton")
+    button.type = "button"
+    button.id = value
+    button.innerText = value
+    button.value = value
 
-    new_div.appendChild(input)
-    new_div.appendChild(label)
-
-    return new_div
+    return button
 }
 
-function addCheckboxes(n, response) {
-    const div = document.getElementById("boxDiv")
+function addButtons(n, response) {
+    const ul = document.getElementById("unorderedList")
 
     for (let i = 0; i < n; i++) {
-        new_div = createCheckbox(response, i)
-        div.appendChild(new_div)
+        new_ls = createButton(response, i)
+        ul.appendChild(new_ls)
     }
+}
+
+function createSpan(value) {
+    
+    const span = document.createElement("span")
+    span.classList.add("badge")
+    span.classList.add("bg-primary")
+    span.classList.add("rounded-pill")
+    span.classList.add("order")
+    span.id = ("span-" + value)
+    span.value = ""
+
+    return span
 }

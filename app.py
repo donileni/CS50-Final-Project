@@ -7,7 +7,8 @@ import openai
 from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
-app.run(debug=True)
+
+HEADINGS_AMOUNT = 5
 
 openai.api_key = ""
 
@@ -109,7 +110,7 @@ def generate_content(headings):
 
 def generate_suggested_headings(keyword, sub_keyword):
     headings = []
-    for i in range(5):
+    for i in range(HEADINGS_AMOUNT):
         headings_prompt = "Give me ONE cool and unique SEO-compatible H2 heading based on the keyword '{}' and the sub-keyword '{}'".format(
             keyword, sub_keyword)
 
