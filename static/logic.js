@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", onLoad);
 function onLoad() {
     const button = document.getElementById("submitButton");
     const headingsButton = document.getElementById("headingsButton")
+    const chooseHeadingsButton = document.getElementById("chooseHeadings")
 
     const keyword = document.getElementById("mainKeyword");
     const subKeyword = document.getElementById("sub-keywords");
@@ -18,6 +19,8 @@ function onLoad() {
         const keyword = document.getElementById("mainKeyword").value;
         const subKeyword = document.getElementById("sub-keywords").value;
         const textLength = document.getElementById("textLength").value;
+
+        clearAllHeadings()
 
         setLoadingState(headingsButton)
 
@@ -64,9 +67,16 @@ function onLoad() {
 
     }
 
+    chooseHeadingsButton.addEventListener("click", function (event) {
+        console.log(selectedButtons)
+    })
+
 }
 
 let selectedButtons = []
+
+ 
+
 
 function handleHeadingsResponse(response) {
 
@@ -89,6 +99,13 @@ function handleHeadingsResponse(response) {
                 selectedButtons.push(button.value)
             } else {
                 selectedButtons = selectedButtons.filter(value => value !== button.value)
+            }
+
+            const chooseHeadingsButton = document.getElementById("chooseHeadings")
+            if (selectedButtons.length > 0) {
+                chooseHeadingsButton.disabled = false
+            } else {
+                chooseHeadingsButton.disabled = true
             }
             
             const currentButtons = [...document.querySelectorAll(".order")]
@@ -119,6 +136,9 @@ function handleHeadingsResponse(response) {
 
         }
     }
+
+    const chooseHeadingsButton = document.getElementById("chooseHeadings")
+    chooseHeadingsButton.hidden = false
 
 }
 
@@ -211,4 +231,14 @@ function createSpan(value) {
     span.value = ""
 
     return span
+}
+
+function clearAllHeadings() {
+    selectedButtons = []
+    const allButtons = [...document.querySelectorAll(".headingsButton")]
+
+    allButtons.forEach(button => button.remove())
+    const chooseHeadingsButton = document.getElementById("chooseHeadings")
+    chooseHeadingsButton.disabled = true
+    chooseHeadingsButton.hidden = true
 }
