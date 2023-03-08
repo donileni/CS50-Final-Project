@@ -1,6 +1,8 @@
 import json
 import re
 import sys
+import os
+from dotenv import load_dotenv
 from datetime import datetime
 
 import openai
@@ -10,7 +12,7 @@ app = Flask(__name__)
 
 HEADINGS_AMOUNT = 5
 
-openai.api_key = ""
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
 @app.route("/")
