@@ -27,10 +27,9 @@ def write_content():
     keyword = user_inputs["keyword"]
     sub_keyword = user_inputs["subKeyword"]
     text_length = user_inputs["textLength"]
+    headings = user_inputs["headings"]
 
-    # headings = generate_headings(keyword, sub_keyword, text_length)
-
-    suggested_headings = generate_suggested_headings(keyword, sub_keyword)
+    print(headings)
 
     content = generate_content(headings)
 
@@ -119,7 +118,7 @@ def generate_suggested_headings(keyword, sub_keyword):
         response = openai.Completion.create(
             model="text-davinci-003",
             prompt=headings_prompt,
-            temperature=0.6,
+            temperature=0.7,
             max_tokens=500
         )
         heading = response["choices"][0]["text"].replace(

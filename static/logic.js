@@ -39,15 +39,15 @@ function onLoad() {
 
     }
 
-    button.onclick = function (event) {
+    chooseHeadingsButton.onclick = function (event) {
         event.preventDefault()
         const keyword = document.getElementById("mainKeyword").value;
         const subKeyword = document.getElementById("sub-keywords").value;
         const textLength = document.getElementById("textLength").value;
 
-        setLoadingState(button)
+        setLoadingState(chooseHeadingsButton)
 
-        const body = { keyword: keyword, subKeyword: subKeyword, textLength: textLength }
+        const body = { keyword: keyword, subKeyword: subKeyword, textLength: textLength, headings: selectedHeadings }
 
         fetch("/api/seo", {
             method: "POST",
@@ -67,17 +67,11 @@ function onLoad() {
 
     }
 
-    chooseHeadingsButton.addEventListener("click", function (event) {
-        console.log(selectedButtons)
-    })
-
 }
 
-let selectedButtons = []
+let selectedHeadings = []
 
  
-
-
 function handleHeadingsResponse(response) {
 
     addButtons(response.data.length, response.data)
@@ -96,13 +90,13 @@ function handleHeadingsResponse(response) {
             
             const buttonSpan = button.querySelector(".order")
             if (!buttonSpan) {
-                selectedButtons.push(button.value)
+                selectedHeadings.push(button.value)
             } else {
-                selectedButtons = selectedButtons.filter(value => value !== button.value)
+                selectedHeadings = selectedHeadings.filter(value => value !== button.value)
             }
 
             const chooseHeadingsButton = document.getElementById("chooseHeadings")
-            if (selectedButtons.length > 0) {
+            if (selectedHeadings.length > 0) {
                 chooseHeadingsButton.disabled = false
             } else {
                 chooseHeadingsButton.disabled = true
@@ -119,7 +113,7 @@ function handleHeadingsResponse(response) {
                 const value = currentButton.value
 
                 
-                const index = selectedButtons.findIndex(item => item === value)
+                const index = selectedHeadings.findIndex(item => item === value)
                 if (index === -1) {
                     continue
                 }
@@ -147,16 +141,16 @@ function handleResponse(response) {
     const outputField = document.getElementById("outputField")
     outputField.innerHTML = response.map(value => value.section).join("\n")
 
-    const button = document.getElementById("submitButton");
+    const chooseHeadingsButton = document.getElementById("chooseHeadings");
 
-    removeLoadingState(button)
+    removeLoadingState(chooseHeadingsButton)
 
     console.log(response)
 
 }
 
 function updateDisabledState() {
-    const button = document.getElementById("submitButton");
+    const headingsButton = document.getElementById("submitButton");
     if (allValid()) {
         button.disabled = false
     } else {
@@ -234,7 +228,7 @@ function createSpan(value) {
 }
 
 function clearAllHeadings() {
-    selectedButtons = []
+    selectedHeadings = []
     const allButtons = [...document.querySelectorAll(".headingsButton")]
 
     allButtons.forEach(button => button.remove())
