@@ -18,12 +18,12 @@ Index
             
                         <div class="mb-3">
                             <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="mainKeyword"
-                                name="mainKeyword" placeholder="Input main keyword" type="text">
+                                name="mainKeyword" placeholder="Main keyword" type="text">
                         </div>
             
                         <div class="mb-3">
                             <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="sub-keywords"
-                                name="sub-keywords" placeholder="Input sub-keyword(s)" type="text">
+                                name="sub-keywords" placeholder="Sub-keywords (optional)" type="text">
                         </div>
             
                         <div class="mb-3">
@@ -66,12 +66,19 @@ Index
     </div>
     
     
-    <div class="mb-3 text-center">
+    <div class="mb-3 text-center div-size" style="margin: auto;">
         <h2>SEO-Generated Content</h2>
-            <textarea readonly id="outputField" name="outputField" rows="35" cols="130">
-                Your text will appear here
-            </textarea>
-        
+        <div class="button-container mb-3 bd-clipboard">
+            <button type="btn-clipboard" class="btn btn-primary" id="copyButton">
+                <i class="bi bi-clipboard"></i>
+                    Copy
+            </button>
+        </div>
+
+        <textarea class="textarea-size" readonly id="outputField" name="outputField">
+            Your text will appear here
+        </textarea>
+
     </div>
 
 

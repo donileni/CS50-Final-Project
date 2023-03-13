@@ -4,3 +4,29 @@
     padding: 10px;
 
 }
+
+.div-size {
+    width: 90%;
+    height: 50vw;
+
+    
+}
+
+.copy-button-position {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.button-container {
+    display: flex;
+    justify-content: right;
+    gap: 3px;
+    
+}
+
+.textarea-size {
+    width: 100%;
+    height: 100%;
+}
+

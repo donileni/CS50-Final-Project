@@ -2,9 +2,9 @@
 document.addEventListener("DOMContentLoaded", onLoad);
 
 function onLoad() {
-    const button = document.getElementById("submitButton");
     const headingsButton = document.getElementById("headingsButton")
     const chooseHeadingsButton = document.getElementById("chooseHeadings")
+    const copyButton = document.getElementById("copyButton")
 
     const keyword = document.getElementById("mainKeyword");
     const subKeyword = document.getElementById("sub-keywords");
@@ -13,6 +13,8 @@ function onLoad() {
     keyword.addEventListener("keyup", updateDisabledState)
     subKeyword.addEventListener("keyup", updateDisabledState)
     textLength.addEventListener("change", updateDisabledState)
+
+    updateDisabledState()
 
     headingsButton.onclick = function (event) {
         event.preventDefault()
@@ -60,12 +62,15 @@ function onLoad() {
             .then(response => response.json())
             .then(handleResponse)
 
-        console.log(keyword, subKeyword, textLength)
-        console.log(body)
-
-        console.log(event)
-
     }
+
+    copyButton.addEventListener("click", function() {
+        const outputField = document.getElementById("outputField")
+
+        navigator.clipboard.writeText(outputField.value)
+        dynamicCopyButton(copyButton)
+
+    }); 
 
 }
 
@@ -107,7 +112,6 @@ function handleHeadingsResponse(response) {
             currentButtons.forEach(item => item.remove())
 
             const allButtons = document.getElementsByClassName("headingsButton")
-            console.log(allButtons)
         
             for (const currentButton of allButtons) {
                 const value = currentButton.value
@@ -145,26 +149,23 @@ function handleResponse(response) {
 
     removeLoadingState(chooseHeadingsButton)
 
-    console.log(response)
-
 }
 
 function updateDisabledState() {
-    const headingsButton = document.getElementById("submitButton");
+    const headingsButton = document.getElementById("headingsButton");
     if (allValid()) {
-        button.disabled = false
+        headingsButton.disabled = false
     } else {
-        button.disabled = true
+        headingsButton.disabled = true
     }
 }
 
 function allValid(event) {
 
     const keyword = document.getElementById("mainKeyword").value;
-    const subKeyword = document.getElementById("sub-keywords").value;
     const textLength = document.getElementById("textLength").value;
 
-    if (keyword === "" || subKeyword === "" || textLength === "Text length")
+    if (keyword === "" || textLength === "Text length")
         return false
 
 
@@ -235,4 +236,26 @@ function clearAllHeadings() {
     const chooseHeadingsButton = document.getElementById("chooseHeadings")
     chooseHeadingsButton.disabled = true
     chooseHeadingsButton.hidden = true
+}
+
+function dynamicCopyButton(button) {
+    button.style.backgroundColor = "green"
+    button.innerText = " Copied!"
+
+        const checkedIcon = document.createElement("i")
+        checkedIcon.classList.add("bi")
+        checkedIcon.classList.add("bi-clipboard-check")
+
+        const originalIcon = document.createElement("i")
+        originalIcon.classList.add("bi")
+        originalIcon.classList.add("bi-clipboard")
+
+        button.insertBefore(checkedIcon, copyButton.childNodes[0])
+        
+        setTimeout(function() {      
+            button.style.backgroundColor = "";
+            button.innerText = " Copy"
+            button.insertBefore(originalIcon, button.childNodes[0])
+        }, 1000);
+
 }
