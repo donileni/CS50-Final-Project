@@ -68,14 +68,13 @@ function onLoad() {
         const outputField = document.getElementById("outputField")
 
         navigator.clipboard.writeText(outputField.value)
-        dynamicCopyButton(copyButton)
+        changeCopyButton(copyButton)
 
     }); 
 
 }
 
 let selectedHeadings = []
-
  
 function handleHeadingsResponse(response) {
 
@@ -238,24 +237,26 @@ function clearAllHeadings() {
     chooseHeadingsButton.hidden = true
 }
 
-function dynamicCopyButton(button) {
-    button.style.backgroundColor = "green"
+function changeCopyButton(button) {
+    button.classList.remove("btn-primary")
+    button.classList.add("btn-success")
+
     button.innerText = " Copied!"
 
-        const checkedIcon = document.createElement("i")
-        checkedIcon.classList.add("bi")
-        checkedIcon.classList.add("bi-clipboard-check")
+    const checkedIcon = document.createElement("i")
+    checkedIcon.classList.add("bi")
+    checkedIcon.classList.add("bi-clipboard-check")
 
-        const originalIcon = document.createElement("i")
-        originalIcon.classList.add("bi")
-        originalIcon.classList.add("bi-clipboard")
+    const originalIcon = document.createElement("i")
+    originalIcon.classList.add("bi")
+    originalIcon.classList.add("bi-clipboard")
 
-        button.insertBefore(checkedIcon, copyButton.childNodes[0])
-        
-        setTimeout(function() {      
-            button.style.backgroundColor = "";
-            button.innerText = " Copy"
-            button.insertBefore(originalIcon, button.childNodes[0])
-        }, 1000);
-
+    button.insertBefore(checkedIcon, copyButton.childNodes[0])
+    
+    setTimeout(function() {      
+        button.classList.remove("btn-success")
+        button.classList.add("btn-primary")
+        button.innerText = " Copy"
+        button.insertBefore(originalIcon, button.childNodes[0])
+    }, 1000);
 }
