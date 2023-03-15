@@ -78,6 +78,11 @@ let selectedHeadings = []
  
 function handleHeadingsResponse(response) {
 
+    const textLength = document.getElementById("textLength");
+    let currentSelectedHeadings = 0;
+    const maxHeadings = setMaxHeadings(textLength.value)
+    console.log(maxHeadings)
+
     addButtons(response.data.length, response.data)
 
     const headingsButton = document.getElementById("headingsButton")
@@ -91,21 +96,20 @@ function handleHeadingsResponse(response) {
 
     for (const button of buttons) {
         button.onclick = function () {
-            
+
             const buttonSpan = button.querySelector(".order")
             if (!buttonSpan) {
                 selectedHeadings.push(button.value)
+                currentSelectedHeadings++
+                console.log(currentSelectedHeadings)
             } else {
+                currentSelectedHeadings--
+                console.log(currentSelectedHeadings)
                 selectedHeadings = selectedHeadings.filter(value => value !== button.value)
             }
 
             const chooseHeadingsButton = document.getElementById("chooseHeadings")
-            if (selectedHeadings.length > 0) {
-                chooseHeadingsButton.disabled = false
-            } else {
-                chooseHeadingsButton.disabled = true
-            }
-            
+
             const currentButtons = [...document.querySelectorAll(".order")]
             
             currentButtons.forEach(item => item.remove())
@@ -131,8 +135,28 @@ function handleHeadingsResponse(response) {
                 currentButton.appendChild(newSpan)
             }
 
+            //Limit the number of headings based on textLength
+            if (currentSelectedHeadings == maxHeadings) {
+                chooseHeadingsButton.disabled = false
+                for (const btn of buttons) {
+                    const btnSpan = btn.querySelector(".order")
+                    if (!btnSpan) {
+                        btn.disabled = true
+                    } else {
+                        btn.disabled = false
+                    }
+                }
+            } else {
+                chooseHeadingsButton.disabled = true
+                for (const btn of buttons) {
+                    btn.disabled = false
+                }
+            }
+
         }
     }
+
+    
 
     const chooseHeadingsButton = document.getElementById("chooseHeadings")
     chooseHeadingsButton.hidden = false
@@ -260,3 +284,18 @@ function changeCopyButton(button) {
         button.insertBefore(originalIcon, button.childNodes[0])
     }, 1000);
 }
+
+function setMaxHeadings(textLength) {
+    let maxHeadings = 0;
+    if (textLength == "500") {
+        maxHeadings = 2
+    } else if (textLength == "1000") {
+        maxHeadings = 4
+    } else if (textLength == "1500") {
+        maxHeadings = 6
+    } else {
+        maxHeadings = 8
+    }
+
+    return maxHeadings
+} 
