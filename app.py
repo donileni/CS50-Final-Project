@@ -30,8 +30,6 @@ def write_content():
     text_length = user_inputs["textLength"]
     headings = user_inputs["headings"]
 
-    print(headings)
-
     content = generate_content(headings)
 
     return jsonify(content)

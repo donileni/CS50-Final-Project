@@ -6,6 +6,8 @@ function onLoad() {
     const chooseHeadingsButton = document.getElementById("chooseHeadings")
     const copyButton = document.getElementById("copyButton")
     const clearButton = document.getElementById("clearButton")
+    const getStartedButton = document.getElementById("getStartedButton")
+    const titleField = document.getElementById("titleField")
 
     const keyword = document.getElementById("mainKeyword");
     const subKeyword = document.getElementById("sub-keywords");
@@ -14,6 +16,13 @@ function onLoad() {
     keyword.addEventListener("keyup", updateDisabledState)
     subKeyword.addEventListener("keyup", updateDisabledState)
     textLength.addEventListener("change", updateDisabledState)
+    titleField.addEventListener("keyup", function(){
+        if (titleField.value == "") {
+            getStartedButton.disabled = true
+        } else {
+            getStartedButton.disabled = false
+        }
+    })
 
     updateDisabledState()
 
@@ -51,7 +60,7 @@ function onLoad() {
         setLoadingState(chooseHeadingsButton)
 
         const body = { keyword: keyword, subKeyword: subKeyword, textLength: textLength, headings: selectedHeadings }
-        console.log(body)
+
         fetch("/api/seo", {
             method: "POST",
             body: JSON.stringify(body),
@@ -79,6 +88,20 @@ function onLoad() {
         outputField.value = ""
 
     });
+
+    getStartedButton.addEventListener("click", function() {
+        titleInputField = document.getElementById("titleField")
+        const title = titleInputField.value
+        
+        const textOutputDiv = document.getElementById("textOutputDiv")
+        const tabSection = document.getElementById("tabSection")
+
+        const outputField = document.getElementById("outputField")
+        outputField.value = ("<h1>" + title + "<h1>")
+
+        textOutputDiv.hidden = false
+        tabSection.hidden = false
+    })
 
 }
 
@@ -165,8 +188,6 @@ function handleHeadingsResponse(response) {
         }
     }
 
-    
-
     const chooseHeadingsButton = document.getElementById("chooseHeadings")
     chooseHeadingsButton.hidden = false
 
@@ -175,7 +196,12 @@ function handleHeadingsResponse(response) {
 function handleResponse(response) {
 
     const outputField = document.getElementById("outputField")
-    outputField.value = response.map(value => value.section).join("\n")
+    const titleField = document.getElementById("titleField")
+    const title = ("<h1>" + titleField.value + "<h1>")
+
+    
+    outputField.value = (title + "\n\n" + response.map(value => value.section).join("\n"))
+    
 
     const chooseHeadingsButton = document.getElementById("chooseHeadings");
 

@@ -10,7 +10,7 @@ test_index
  <script src="https://unpkg.com/@grammarly/editor-sdk?clientId={{ client_id }}"></script>
 
     <div class="container  mb-3">
-        <div style="height: 30vh;">
+        <div style="height: 25vh;">
             <div class="row align-items-center">
                 <div class="col-12 col-md-7 col-lg-6 order-md-1">
 
@@ -23,6 +23,17 @@ test_index
                 <p class="lead text-center text-md-start text-muted mb-6 mb-lg-8">
                     Generate SEO-compatible content in a heartbeat.
                 </p>
+                </div>
+                <div class="col-12 col-md-7 col-lg-6 order-md-1">
+                    <h2 class="display-5 text-center">Add a <span class="text-primary">Title</span> & <span class="text-primary">Get Started</span>!</h2>
+                    <div class="d-flex justify-content-center align-items-center text-center mb-3">
+                        <div class="col-12 col-md-4">
+                            <input id="titleField" placeholder="Your title" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <button disabled id="getStartedButton" type="button" class="btn btn-primary btn-lg">Get Started!</button>
+                        </div>
+                    </div>
                 </div>
             </div> <!-- / .row -->
 
@@ -85,7 +96,7 @@ test_index
             </section>
         </div>
 
-        <section class="py-8 py-md-11 border-bottom">
+        <section id="tabSection" hidden class="py-8 py-md-11 border-bottom">
             <div class="container mb-3 mt-3">
                 <nav>
                     <div class="nav nav-tabs nav-justified" id="nav-tab" role="tablist">
@@ -142,7 +153,7 @@ test_index
         </section>
 
       
-        <div class="mb-3 text-center div-size" style="margin: auto;">
+        <div hidden id="textOutputDiv" class="mb-3 mt-3 text-center div-size" style="margin: auto;">
             <h2 class="display-5 text-center">
                 <span class="text-primary">SEO Generated Content.</span> <br>
             </h2>
@@ -160,9 +171,7 @@ test_index
 
             </div>
             <grammarly-editor-plugin>
-                <textarea class="textarea-size" id="outputField" name="outputField">
-                    Your text will appear here
-                </textarea>
+                <textarea class="textarea-size" id="outputField" name="outputField">Your text will appear here...</textarea>
             </grammarly-editor-plugin>
         </div>
 
