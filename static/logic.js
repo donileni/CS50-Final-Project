@@ -7,6 +7,9 @@ function onLoad() {
     const copyButton = document.getElementById("copyButton")
     const clearButton = document.getElementById("clearButton")
 
+    const generateHeadingsTab = document.getElementById("Generate Headings")
+    const selectHeadingsTab = document.getElementById("Select Headings")
+
     const keyword = document.getElementById("mainKeyword");
     const subKeyword = document.getElementById("sub-keywords");
     const textLength = document.getElementById("textLength");
@@ -89,7 +92,6 @@ function handleHeadingsResponse(response) {
     const textLength = document.getElementById("textLength");
     let currentSelectedHeadings = 0;
     const maxHeadings = setMaxHeadings(textLength.value)
-    console.log(maxHeadings)
 
     addButtons(response.data.length, response.data)
 
