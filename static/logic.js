@@ -5,6 +5,7 @@ function onLoad() {
     const headingsButton = document.getElementById("headingsButton")
     const chooseHeadingsButton = document.getElementById("chooseHeadings")
     const copyButton = document.getElementById("copyButton")
+    const clearButton = document.getElementById("clearButton")
 
     const keyword = document.getElementById("mainKeyword");
     const subKeyword = document.getElementById("sub-keywords");
@@ -70,7 +71,14 @@ function onLoad() {
         navigator.clipboard.writeText(outputField.value)
         changeCopyButton(copyButton)
 
-    }); 
+    });
+
+    clearButton.addEventListener("click", function() {
+        const outputField = document.getElementById("outputField")
+
+        outputField.value = ""
+
+    });
 
 }
 
