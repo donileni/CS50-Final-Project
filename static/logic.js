@@ -50,7 +50,7 @@ function onLoad() {
         setLoadingState(chooseHeadingsButton)
 
         const body = { keyword: keyword, subKeyword: subKeyword, textLength: textLength, headings: selectedHeadings }
-
+        console.log(body)
         fetch("/api/seo", {
             method: "POST",
             body: JSON.stringify(body),
@@ -166,7 +166,7 @@ function handleHeadingsResponse(response) {
 function handleResponse(response) {
 
     const outputField = document.getElementById("outputField")
-    outputField.innerHTML = response.map(value => value.section).join("\n")
+    outputField.value = response.map(value => value.section).join("\n")
 
     const chooseHeadingsButton = document.getElementById("chooseHeadings");
 

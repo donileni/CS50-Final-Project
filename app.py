@@ -13,11 +13,12 @@ app = Flask(__name__)
 HEADINGS_AMOUNT = 5
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
+GRAMMARLY_CLIENT_ID = os.getenv("GRAMMARLY_CLIENT_ID")
 
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", client_id=GRAMMARLY_CLIENT_ID)
 
 
 @app.route("/api/seo", methods=["POST"])

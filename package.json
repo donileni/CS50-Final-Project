@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@grammarly/editor-sdk": "^2.3.11"
+  }
+}

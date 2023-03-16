@@ -5,6 +5,10 @@ Index
 {% endblock %}
 
 {% block main %}
+
+ <!-- Adding Grammarly -->
+ <script src="https://unpkg.com/@grammarly/editor-sdk?clientId={{ client_id }}"></script>
+
 <div class="section">
     <h1 class="text-center">SEO Generator</h1>
     <div class="container">
@@ -74,10 +78,11 @@ Index
                     Copy
             </button>
         </div>
-
-        <textarea class="textarea-size" readonly id="outputField" name="outputField">
-            Your text will appear here
-        </textarea>
+        <grammarly-editor-plugin>
+            <textarea class="textarea-size" id="outputField" name="outputField">
+                Your text will appear here
+            </textarea>
+        </grammarly-editor-plugin>
 
     </div>
 
