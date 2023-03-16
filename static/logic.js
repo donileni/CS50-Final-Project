@@ -7,9 +7,6 @@ function onLoad() {
     const copyButton = document.getElementById("copyButton")
     const clearButton = document.getElementById("clearButton")
 
-    const generateHeadingsTab = document.getElementById("Generate Headings")
-    const selectHeadingsTab = document.getElementById("Select Headings")
-
     const keyword = document.getElementById("mainKeyword");
     const subKeyword = document.getElementById("sub-keywords");
     const textLength = document.getElementById("textLength");
@@ -93,10 +90,14 @@ function handleHeadingsResponse(response) {
     let currentSelectedHeadings = 0;
     const maxHeadings = setMaxHeadings(textLength.value)
 
+    const selectHeadingsTab = document.getElementById("nav-profile-tab")
+    const selectTrigger = new bootstrap.Tab(selectHeadingsTab)
+
     addButtons(response.data.length, response.data)
 
     const headingsButton = document.getElementById("headingsButton")
     removeLoadingState(headingsButton)
+    selectTrigger.show()
 
     const chooseHeadingsButtonDiv = document.getElementById("chooseHeadingsButtonDiv")
     chooseHeadingsButtonDiv.removeAttribute("hidden")
@@ -111,10 +112,8 @@ function handleHeadingsResponse(response) {
             if (!buttonSpan) {
                 selectedHeadings.push(button.value)
                 currentSelectedHeadings++
-                console.log(currentSelectedHeadings)
             } else {
                 currentSelectedHeadings--
-                console.log(currentSelectedHeadings)
                 selectedHeadings = selectedHeadings.filter(value => value !== button.value)
             }
 
