@@ -2,6 +2,13 @@
 document.addEventListener("DOMContentLoaded", onLoad);
 
 function onLoad() {
+
+    setTimeout(function(){
+        const mainContainer = document.querySelector("#mainContainer")
+        mainContainer.classList.remove("hidden")
+        mainContainer.classList.add("fade-in")
+    },0)
+
     const headingsButton = document.getElementById("headingsButton")
     const chooseHeadingsButton = document.getElementById("chooseHeadings")
     const copyButton = document.getElementById("copyButton")
@@ -92,6 +99,7 @@ function onLoad() {
     getStartedButton.addEventListener("click", function() {
         titleInputField = document.getElementById("titleField")
         const title = titleInputField.value
+        const getStartedDiv = document.getElementById("getStartedDiv")
         
         const textOutputDiv = document.getElementById("textOutputDiv")
         const tabSection = document.getElementById("tabSection")
@@ -101,6 +109,8 @@ function onLoad() {
 
         textOutputDiv.hidden = false
         tabSection.hidden = false
+        getStartedDiv.classList.toggle("d-none")
+        
     })
 
 }

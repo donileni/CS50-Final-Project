@@ -34,3 +34,17 @@
 .nav-link {
     font-size: 25px;
 }
+
+.hidden {
+    opacity: 0%;
+    transform: translateY(100px);
+}
+
+.fade-in {
+    opacity: 100%;
+    transform: translateY(0px);
+}
+
+#mainContainer {
+    transition: all 1s ease-in-out;
+}
