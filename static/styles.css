@@ -38,6 +38,7 @@
 .hidden {
     opacity: 0%;
     transform: translateY(100px);
+    transition: all 1s ease-in-out;
 }
 
 .fade-in {
@@ -45,6 +46,7 @@
     transform: translateY(0px);
 }
 
-#mainContainer {
+#mainContainer, #tabSection, #textOutputDiv {
     transition: all 1s ease-in-out;
 }
+

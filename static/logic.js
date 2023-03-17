@@ -4,9 +4,7 @@ document.addEventListener("DOMContentLoaded", onLoad);
 function onLoad() {
 
     setTimeout(function(){
-        const mainContainer = document.querySelector("#mainContainer")
-        mainContainer.classList.remove("hidden")
-        mainContainer.classList.add("fade-in")
+        fadeIn("#mainContainer")
     },0)
 
     const headingsButton = document.getElementById("headingsButton")
@@ -107,12 +105,14 @@ function onLoad() {
         const outputField = document.getElementById("outputField")
         outputField.value = ("<h1>" + title + "<h1>")
 
-        textOutputDiv.hidden = false
-        tabSection.hidden = false
         getStartedDiv.classList.toggle("d-none")
+
+        setTimeout(function(){
+            fadeIn("#tabSection")
+            fadeIn("#textOutputDiv")
+        },0)
         
     })
-
 }
 
 let selectedHeadings = []
@@ -344,3 +344,11 @@ function setMaxHeadings(textLength) {
 
     return maxHeadings
 } 
+
+function fadeIn(id) {
+    const container = document.querySelector(id)
+    container.classList.remove("hidden")
+    container.classList.add("fade-in")
+}
+
+
