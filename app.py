@@ -1,6 +1,3 @@
-import json
-import re
-import sys
 import os
 from dotenv import load_dotenv
 from datetime import datetime
@@ -25,9 +22,6 @@ def index():
 def write_content():
 
     user_inputs = request.json
-    keyword = user_inputs["keyword"]
-    sub_keyword = user_inputs["subKeyword"]
-    text_length = user_inputs["textLength"]
     headings = user_inputs["headings"]
 
     content = generate_content(headings)
@@ -40,7 +34,6 @@ def choose_headings():
     user_inputs = request.json
     keyword = user_inputs["keyword"]
     sub_keyword = user_inputs["subKeyword"]
-    text_length = user_inputs["textLength"]
 
     suggested_headings = generate_suggested_headings(keyword, sub_keyword)
 

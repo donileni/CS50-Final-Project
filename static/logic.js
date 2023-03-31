@@ -210,7 +210,7 @@ function handleResponse(response) {
     const title = ("<h1>" + titleField.value + "<h1>")
 
     
-    outputField.value = (title + "\n\n" + response.map(value => value.section).join("\n"))
+    outputField.value = (title + "\n" + response.map(value => value.section).join("\n"))
     
 
     const chooseHeadingsButton = document.getElementById("chooseHeadings");
@@ -350,5 +350,3 @@ function fadeIn(id) {
     container.classList.remove("hidden")
     container.classList.add("fade-in")
 }
-
-
