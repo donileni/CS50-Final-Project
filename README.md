@@ -16,7 +16,11 @@ git clone https://github.com/donileni/CS50-Final-Project.git
 
 # Change directory
 cd CS50-Final-Project
+```
 
+- Create virtual environemnt (optional)
+
+```
 # Install requirements
 pip install -r requirements.txt
 # or
@@ -27,7 +31,7 @@ pip3 install -r requirements.txt
 
 ```
 # Run flask server
-$ flask run
+flask run
 ```
 
 ### Documentation
